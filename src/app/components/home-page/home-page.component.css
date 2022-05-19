@@ -1,0 +1,89 @@
+.create {
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.logout-button-container,
+.create-button-container {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.create-button-container {
+    margin-top: 3%;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.all-tickets,
+.my-tickets {
+    width: 400px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f7f7f7;
+}
+
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+select {
+    width: 180px;
+    height: 30px;
+    background-color: rgb(81, 152, 112);
+    color: #ffffff;
+    font-weight: bold;
+    border-color: rgb(81, 152, 112);
+    text-align: center;
+}
+
+option {
+    background-color: #ffffff;
+    color: black;
+}
+
+.delete {
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+.delete:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+.message {
+    text-align: center;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.search-div {
+    margin: 10px;
+}
+
+.search-form-field {
+    width: 60%;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

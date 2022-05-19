@@ -1,0 +1,45 @@
+<h2>Ticket Creation Page</h2>
+<form [formGroup]="service.form" class="normal-form">
+    <div class="controles-container">
+        <mat-form-field>
+            <mat-select formControlName="category" placeholder="Category">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let category of categories">
+                    <mat-option value="{{category.value}}">{{category.value}}</mat-option>
+                </ng-container>
+            </mat-select>
+            <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="name" matInput placeholder="Name">
+            <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="description" matInput placeholder="Description">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="urgency" placeholder="Urgency">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let urgency of urgencies">
+                    <mat-option value="{{urgency.value}}">{{urgency.value}}</mat-option>
+                </ng-container>
+            </mat-select>
+            <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="desiredResolutionDate" matInput [matDatepicker]="picker"
+                placeholder="Desired Resolution Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Leave a comment</mat-label>
+            <textarea formControlName="comment" matInput placeholder="Ex. Your comment here..."></textarea>
+        </mat-form-field>
+
+        <div class="button-row">
+            <button mat-raised-button color="accent" type="submit" (click)="onSubmit('SAVE AS DRAFT')">SAVE AS DRAFT</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid" (click)="onSubmit('SUBMIT')">SUBMIT</button>
+        </div>
+    </div>
+</form>

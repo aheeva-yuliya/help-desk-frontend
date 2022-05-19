@@ -1,0 +1,71 @@
+<app-logout></app-logout>
+<div class="buttons-container">
+    <button class="btn all-tickets" (click)="getAllTickets()">All Tickets</button>
+    <button class="btn my-tickets" (click)="getMyTickets()">My Tickets</button>
+</div>
+
+<div class="table">
+
+    <div class="search-div">
+        <button mat-raised-button class="create" (click)="onCreate()">
+            <mat-icon>add</mat-icon>Create New Ticket
+        </button>
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="">ID</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id|json}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="">Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef>Desired Date</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.desiredResolutionDate|date}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="urgency">
+                <mat-header-cell *matHeaderCellDef>Urgency</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.urgency}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.state}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <select (change)="performAction(element.id)" [(ngModel)]="selectedAction"
+                        *ngIf="element.action.length > 0">
+                        <option value="" disabled selected="selected">Action</option>
+                        <option *ngFor="let action of element.action" value="{{action}}">{{action}}</option>
+                    </select>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="5" showFirstLastButtons=""></mat-paginator>
+
+    <div *ngIf="responseMessage" class="'message-container">
+        <div class="icon-container">
+            <h3 class="message">{{responseMessage}}</h3>
+            <button mat-icon-button color="warn" class="delete" (click)="onDeleteMessage()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+
+</div>

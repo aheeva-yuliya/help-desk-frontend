@@ -1,18 +1,47 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ErrorComponent } from './components/error/error.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/auth-interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { LogoutComponent } from './components/logout/logout.component';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { TicketFormService } from './services/ticket-form.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
+ 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomePageComponent,
+    ErrorComponent,
+    LogoutComponent,
+    TicketComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthGuard, TicketFormService,
+    {provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [TicketComponent]
 })
 export class AppModule { }

@@ -1,0 +1,45 @@
+.head-wrapper {
+    background-image: url(https://image.shutterstock.com/image-illustration/backdrop-gray-white-halftone-perspective-600w-618298106.jpg);
+    background-size: 100%;
+}
+
+h1 {
+    color: rgb(147, 147, 147);
+    font-family: Times, Georgia, serif;
+    font-size: 250%;
+    font-weight: 700;
+}
+
+.logout-button-container {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.logout {
+    margin-top: -75px;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.title {
+    text-align: center;
+    padding-top: 15px;
+}
+
+hr {
+	height: 5px;
+	border: none;
+}
+
+.top {
+    background: linear-gradient(180deg, rgb(248, 248, 248), rgb(231, 231, 231));
+}
+
+.butt {
+    background: linear-gradient(180deg, rgb(231, 231, 231), rgb(248, 248, 248));
+    margin-bottom: 40px;
+}
