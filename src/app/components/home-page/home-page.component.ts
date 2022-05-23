@@ -5,7 +5,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TicketComponent } from '../ticket/ticket.component';
-import { TicketFormService } from 'src/app/services/ticket-form.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,9 +14,9 @@ import { TicketFormService } from 'src/app/services/ticket-form.service';
 })
 
 export class HomePageComponent implements OnInit {
+  userRole: boolean;
   selectedAction: string = '';
   responseMessage: string;
-  isAllTickets: boolean;
 
   searchKey: string;
 
@@ -27,10 +27,13 @@ export class HomePageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private ticketService: TicketService, private dialog: MatDialog, private ticketForm: TicketFormService) {
+  constructor(private ticketService: TicketService, private dialog: MatDialog, private storage: TokenStorageService) {
   }
 
   ngOnInit(): void {
+    console.log(this.storage.getRole());
+    console.log(this.storage.getRole() === 'EMPLOYEE');
+    this.userRole = this.storage.getRole() == 'EMPLOYEE' || this.storage.getRole() == 'MANAGER';
   }
 
   getAllTickets() {
@@ -40,8 +43,6 @@ export class HomePageComponent implements OnInit {
         this.listData = new MatTableDataSource(response);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
-
-        this.isAllTickets = true;
       });
   }
 
@@ -52,8 +53,6 @@ export class HomePageComponent implements OnInit {
         this.listData = new MatTableDataSource(response);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
-
-        this.isAllTickets = false;
       })
   }
 
@@ -70,12 +69,7 @@ export class HomePageComponent implements OnInit {
 
   onDeleteMessage() {
     this.responseMessage = '';
-
-    if (this.isAllTickets) {
-      this.getAllTickets();
-    } else {
-      this.getMyTickets();
-    }
+    this.listData = new MatTableDataSource();
   }
 
   onSearchClear() {
@@ -88,10 +82,11 @@ export class HomePageComponent implements OnInit {
   }
 
   onCreate() {
-    this.dialog.open(TicketComponent, {
-      height: '80%',
-      width: '80%'
-    });
-    console.log(this.ticketForm);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "80%";
+    dialogConfig.height = "80%";
+    this.dialog.open(TicketComponent, dialogConfig);
   }
 }

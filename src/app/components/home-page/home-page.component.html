@@ -7,7 +7,7 @@
 <div class="table">
 
     <div class="search-div">
-        <button mat-raised-button class="create" (click)="onCreate()">
+        <button  *ngIf="userRole" mat-raised-button class="create" (click)="onCreate()">
             <mat-icon>add</mat-icon>Create New Ticket
         </button>
         <mat-form-field class="search-form-field">

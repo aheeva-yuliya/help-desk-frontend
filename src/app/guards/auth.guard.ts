@@ -10,6 +10,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         console.log('guard');
-        return this.tokenStorage.getLength() === 1;
+        return this.tokenStorage.getLength() === 2;
     }
 }

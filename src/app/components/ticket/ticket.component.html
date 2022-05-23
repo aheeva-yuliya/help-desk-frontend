@@ -1,4 +1,9 @@
-<h2>Ticket Creation Page</h2>
+<div mat-dialog-title class="dialog-title">
+    <h2>Create New Ticket</h2>
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close (click)="onClose()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
 <form [formGroup]="service.form" class="normal-form">
     <div class="controles-container">
         <mat-form-field>
@@ -32,14 +37,19 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+
+      
+
         <mat-form-field appearance="fill">
             <mat-label>Leave a comment</mat-label>
             <textarea formControlName="comment" matInput placeholder="Ex. Your comment here..."></textarea>
         </mat-form-field>
 
         <div class="button-row">
-            <button mat-raised-button color="accent" type="submit" (click)="onSubmit('SAVE AS DRAFT')">SAVE AS DRAFT</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid" (click)="onSubmit('SUBMIT')">SUBMIT</button>
+            <button mat-raised-button color="accent" type="submit" (click)="onSubmit('SAVE AS DRAFT')">SAVE AS
+                DRAFT</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid"
+                (click)="onSubmit('SUBMIT')">SUBMIT</button>
         </div>
     </div>
 </form>

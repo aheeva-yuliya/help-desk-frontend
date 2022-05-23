@@ -14,10 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LogoutComponent } from './components/logout/logout.component';
 import { TicketComponent } from './components/ticket/ticket.component';
-import { TicketFormService } from './services/ticket-form.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
- 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard, TicketFormService,
+  providers: [AuthGuard, DatePipe, 
     {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true}

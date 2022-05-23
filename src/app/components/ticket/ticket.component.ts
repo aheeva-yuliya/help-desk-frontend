@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TicketFormService } from 'src/app/services/ticket-form.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-ticket',
@@ -7,7 +8,6 @@ import { TicketFormService } from 'src/app/services/ticket-form.service';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
-
   categories = [
     { value: "Application & Services" },
     { value: "Benefits & Paper Work" },
@@ -24,13 +24,21 @@ export class TicketComponent implements OnInit {
     { value: "Low" }
   ];
 
-  constructor(public service: TicketFormService) { }
+  srcResult: any;
+
+  constructor(public service: TicketService, public dialogRef: MatDialogRef<TicketComponent>) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(action: string) {
-    console.log(action);
+    this.dialogRef.close();
+    this.service.createDto(action);
+  }
+
+  onClose() {
+    this.service.form.reset();
+    this.dialogRef.close();
   }
 
 }

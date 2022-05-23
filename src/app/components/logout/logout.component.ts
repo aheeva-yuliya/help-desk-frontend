@@ -15,6 +15,7 @@ export class LogoutComponent implements OnInit {
 
   handleLogout() {
     this.tokenStorage.removeToken();
+    this.tokenStorage.removeRole();
   }
 
 }
