@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -22,7 +24,16 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    component: ErrorComponent,
+    component: ErrorComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
+  },
+  {
+    path: 'overview/:id',
+    component: TicketOverviewComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

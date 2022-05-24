@@ -16,7 +16,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-
+import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { DatePipe } from '@angular/common';
     ErrorComponent,
     LogoutComponent,
     TicketComponent,
+    TicketOverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,7 @@ import { DatePipe } from '@angular/common';
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard, DatePipe, 
+  providers: [AuthGuard, DatePipe,
     {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true}

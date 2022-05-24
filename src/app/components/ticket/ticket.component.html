@@ -37,13 +37,23 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-
-      
-
-        <mat-form-field appearance="fill">
-            <mat-label>Leave a comment</mat-label>
-            <textarea formControlName="comment" matInput placeholder="Ex. Your comment here..."></textarea>
+        <mat-form-field>
+            <input matInput formControlName="comment" placeholder="Comment">
+            <textarea class="text" matInput placeholder="Ex. Your comment here..."></textarea>
         </mat-form-field>
+
+
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <div class="file-upload">
+            <p class="attach">Attachment</p>
+            
+            <div class="attachment-wrapper">
+                <p>{{fileName || "No file uploaded yet."}}</p>
+                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon class="attach-icon">attach_file</mat-icon>
+                </button>
+            </div>
+        </div>
 
         <div class="button-row">
             <button mat-raised-button color="accent" type="submit" (click)="onSubmit('SAVE AS DRAFT')">SAVE AS

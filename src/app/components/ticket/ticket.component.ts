@@ -24,7 +24,7 @@ export class TicketComponent implements OnInit {
     { value: "Low" }
   ];
 
-  srcResult: any;
+  fileName: any;
 
   constructor(public service: TicketService, public dialogRef: MatDialogRef<TicketComponent>) { }
 
@@ -39,6 +39,13 @@ export class TicketComponent implements OnInit {
   onClose() {
     this.service.form.reset();
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    const file:File = event.target.files[0];
+    console.log(file);
+    this.fileName = file.name;
+    this.service.getFormData().append('attachment', file);
   }
 
 }

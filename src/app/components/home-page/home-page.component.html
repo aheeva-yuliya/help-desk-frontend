@@ -1,15 +1,17 @@
 <app-logout></app-logout>
 <div class="buttons-container">
-    <button class="btn all-tickets" (click)="getAllTickets()">All Tickets</button>
-    <button class="btn my-tickets" (click)="getMyTickets()">My Tickets</button>
+    <button class="btn all-tickets" [ngClass]="{ btn__check: isAllTickets }" (click)="getAllTickets()">All
+        Tickets</button>
+    <button class="btn my-tickets" [ngClass]="{ btn__check: !isAllTickets }" (click)="getMyTickets()">My
+        Tickets</button>
 </div>
 
-<div class="table">
+<button *ngIf="userRole" mat-raised-button class="create" (click)="onCreate()">
+    <mat-icon>add</mat-icon>Create New Ticket
+</button>
 
+<div class="table">
     <div class="search-div">
-        <button  *ngIf="userRole" mat-raised-button class="create" (click)="onCreate()">
-            <mat-icon>add</mat-icon>Create New Ticket
-        </button>
         <mat-form-field class="search-form-field">
             <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
@@ -49,6 +51,15 @@
                         <option value="" disabled selected="selected">Action</option>
                         <option *ngFor="let action of element.action" value="{{action}}">{{action}}</option>
                     </select>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="overview">
+                <mat-header-cell *matHeaderCellDef>Overview</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button routerLink="/overview/{{element.id}}">
+                        <mat-icon>launch</mat-icon>
+                    </button>
                 </mat-cell>
             </ng-container>
 

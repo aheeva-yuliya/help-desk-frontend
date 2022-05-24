@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TicketComponent } from '../ticket/ticket.component';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home-page',
@@ -22,7 +23,9 @@ export class HomePageComponent implements OnInit {
 
   listData: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['id', 'name', 'date', 'urgency', 'status', 'action'];
+  isAllTickets: boolean;
+
+  displayedColumns: string[] = ['id', 'name', 'date', 'urgency', 'status', 'action', 'overview'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,6 +46,7 @@ export class HomePageComponent implements OnInit {
         this.listData = new MatTableDataSource(response);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
+        this.isAllTickets = true;
       });
   }
 
@@ -53,23 +57,35 @@ export class HomePageComponent implements OnInit {
         this.listData = new MatTableDataSource(response);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
+        this.isAllTickets = false;
       })
+  }
+
+  getTicketOverview(id: number) {
+    console.log(id);
+    this.ticketService.getOverview(id);
   }
 
   performAction(id: number) {
     console.log(id);
     console.log(this.selectedAction);
 
-    this.ticketService.performAction(id, this.selectedAction)
-      .subscribe(response => {
+    this.ticketService.performAction(id, this.selectedAction).subscribe(
+      (response) => {
         console.log(response.message);
         this.responseMessage = response.message;
-      });
+        this.selectedAction = '';
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error.message);
+        this.responseMessage = error.error.message;
+        this.selectedAction = '';
+      }
+    );
   }
 
   onDeleteMessage() {
     this.responseMessage = '';
-    this.listData = new MatTableDataSource();
   }
 
   onSearchClear() {

@@ -8,6 +8,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: TokenStorageService) {}
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('intercept', this.auth.getToken());
     const paramReq = request.clone({

@@ -1,6 +1,15 @@
 .create {
     margin-left: 15px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
+}
+
+.btn:active,
+.btn:focus {
+    border: 2px solid rgb(45, 45, 139);
+}
+
+.btn__check{
+    border: 2px solid rgb(45, 45, 139);
 }
 
 .btn:hover {
@@ -22,6 +31,7 @@
 .buttons-container {
     display: flex;
     justify-content: center;
+    margin-bottom: 3%;
 }
 
 .all-tickets,
@@ -31,7 +41,7 @@
 
 .table {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 10px;
     justify-content: center;
 }
 
@@ -83,7 +93,7 @@ option {
 
 .search-form-field {
     width: 60%;
-    margin-left: 10px;
-    padding: 5px 10px;
+    /* margin-left: 10px;
+    padding: 5px 10px; */
     border-radius: 5px;
 }

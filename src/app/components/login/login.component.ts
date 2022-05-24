@@ -22,5 +22,4 @@ export class LoginComponent implements OnInit {
     console.log('component function')
     this.authService.performAuthRequest(this.email, this.password);
   }
-
 }
