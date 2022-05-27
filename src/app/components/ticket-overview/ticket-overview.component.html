@@ -1,8 +1,17 @@
 <app-logout></app-logout>
-<button type="button" class="btn" (click)="goBack()">go back</button>
 <div class="overview-container">
-    <h2>Ticket ({{overview?.id}}) - {{overview?.name | uppercase}}</h2>
-    <h4>Created on: {{overview?.createdOn | date}}</h4>
+    <div class="overview-header">
+        <h2>Ticket ({{overview?.id}}) - {{overview?.name | uppercase}}</h2>
+        <div>
+            <button [disabled]="!isDraft" title="EDIT TICKET" (click)="onEdit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button [disabled]="!isDone"title="LEAVE FEEDBACK" (click)="onLeaveFeedback()">
+                <mat-icon>chat</mat-icon>
+            </button>
+        </div>
+    </div>
+    <h4>Created on: {{overview?.createdOn | date:'medium'}}</h4>
     <h4>Status: {{overview?.status}}</h4>
     <h4>Urgency: {{overview?.urgency}}</h4>
     <h4>Category: {{overview?.category}}</h4>
@@ -10,13 +19,32 @@
     <h4>Owner: {{overview?.owner}}</h4>
     <h4>Approver: {{overview?.approver}}</h4>
     <h4>Assignee: {{overview?.assignee}}</h4>
-    <h4>Attachments: {{overview?.attachments}}</h4>
     <h4>Description: {{overview?.description}}</h4>
+    <h4>Attachments:
+        <ul>
+            <li *ngFor="let attachment of attachments">
+                {{attachment.id}} {{attachment.name}}
+                <button mat-icon-button color="primary" (click)="downloadAttachment(attachment.id, attachment.name)">
+                    <mat-icon>get_app</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" [disabled]="!isDraft" (click)="removeAttachment(attachment.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </li>
+        </ul>
+    </h4>
 </div>
 <div class="buttons-container">
-    <button class="btn" (click)="getHistoryData()">History</button>
-    <button class="btn" (click)="getCommentsData()">Comments</button>
+    <button class="btn" (click)="getHistoryData()" [ngClass]="{ btn__check: isValid }">History</button>
+    <button class="btn" (click)="getCommentsData()" [ngClass]="{ btn__check: !isValid }">Comments</button>
 </div>
+
+<div class="list-container">
+    <button mat-icon-button color="primary" data-tooltip="SHOW ALL" class="list" (click)="getAll()">
+        <mat-icon>list</mat-icon>
+    </button>
+</div>
+
 
 <div class="mat-elevation-z8">
     <mat-table [dataSource]="listData">
@@ -62,3 +90,11 @@
 </div>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="5" showFirstLastButtons=""></mat-paginator>
+
+<div *ngIf="!isValid">
+    <p>Your comment:</p>
+    <div class="comment-container">
+        <textarea [(ngModel)]="comment" cols="40" rows="3"></textarea>
+        <button mat-flat-button color="link" class="comment" (click)="addComment()">ADD COMMENT</button>
+    </div>
+</div>

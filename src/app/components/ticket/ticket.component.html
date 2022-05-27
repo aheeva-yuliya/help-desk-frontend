@@ -1,5 +1,5 @@
 <div mat-dialog-title class="dialog-title">
-    <h2>Create New Ticket</h2>
+    <h2>{{service.title}}</h2>
     <button mat-icon-button aria-label="close dialog" mat-dialog-close (click)="onClose()">
         <mat-icon>close</mat-icon>
     </button>
@@ -13,11 +13,9 @@
                     <mat-option value="{{category.value}}">{{category.value}}</mat-option>
                 </ng-container>
             </mat-select>
-            <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input formControlName="name" matInput placeholder="Name">
-            <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input formControlName="description" matInput placeholder="Description">
@@ -29,7 +27,6 @@
                     <mat-option value="{{urgency.value}}">{{urgency.value}}</mat-option>
                 </ng-container>
             </mat-select>
-            <mat-error>This field is mandatory.</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input formControlName="desiredResolutionDate" matInput [matDatepicker]="picker"
@@ -46,7 +43,7 @@
         <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
         <div class="file-upload">
             <p class="attach">Attachment</p>
-            
+
             <div class="attachment-wrapper">
                 <p>{{fileName || "No file uploaded yet."}}</p>
                 <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">

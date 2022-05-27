@@ -1,9 +1,7 @@
 <app-logout></app-logout>
 <div class="buttons-container">
-    <button class="btn all-tickets" [ngClass]="{ btn__check: isAllTickets }" (click)="getAllTickets()">All
-        Tickets</button>
-    <button class="btn my-tickets" [ngClass]="{ btn__check: !isAllTickets }" (click)="getMyTickets()">My
-        Tickets</button>
+    <button class="btn all-tickets" [ngClass]="{ btn__check: isAllTickets }" routerLink="/tickets/all" (click)="getAllTickets()">All Tickets</button>
+    <button [disabled]="!userRole" class="btn my-tickets" [ngClass]="{ btn__check: !isAllTickets }" routerLink="/tickets/my" (click)="getMyTickets()">My Tickets</button>
 </div>
 
 <button *ngIf="userRole" mat-raised-button class="create" (click)="onCreate()">
@@ -55,8 +53,8 @@
             </ng-container>
 
             <ng-container matColumnDef="overview">
-                <mat-header-cell *matHeaderCellDef>Overview</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-header-cell class="over-link" *matHeaderCellDef>Overview</mat-header-cell>
+                <mat-cell class="over-link" *matCellDef="let element">
                     <button mat-icon-button routerLink="/overview/{{element.id}}">
                         <mat-icon>launch</mat-icon>
                     </button>

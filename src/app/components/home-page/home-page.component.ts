@@ -7,6 +7,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TicketComponent } from '../ticket/ticket.component';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-home-page',
@@ -30,13 +32,17 @@ export class HomePageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private ticketService: TicketService, private dialog: MatDialog, private storage: TokenStorageService) {
+  constructor(private ticketService: TicketService, private dialog: MatDialog, private storage: TokenStorageService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    console.log(this.storage.getRole());
-    console.log(this.storage.getRole() === 'EMPLOYEE');
     this.userRole = this.storage.getRole() == 'EMPLOYEE' || this.storage.getRole() == 'MANAGER';
+    const param = this.route.snapshot.paramMap.get('');
+    if (param === 'my') {
+      this.getMyTickets();
+    } else {
+      this.getAllTickets();
+    }
   }
 
   getAllTickets() {
@@ -77,7 +83,7 @@ export class HomePageComponent implements OnInit {
         this.selectedAction = '';
       },
       (error: HttpErrorResponse) => {
-        console.log(error.error.message);
+        console.log(error.message);
         this.responseMessage = error.error.message;
         this.selectedAction = '';
       }
@@ -86,6 +92,11 @@ export class HomePageComponent implements OnInit {
 
   onDeleteMessage() {
     this.responseMessage = '';
+    if (this.isAllTickets) {
+      this.getAllTickets();
+    } else {
+      this.getMyTickets();
+    }
   }
 
   onSearchClear() {
@@ -98,6 +109,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onCreate() {
+    this.ticketService.initializeForm();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TicketService } from 'src/app/services/ticket.service';
+import { NotificationService } from 'src/app/services/notification-service.service';
 
 @Component({
   selector: 'app-ticket',
@@ -26,14 +27,21 @@ export class TicketComponent implements OnInit {
 
   fileName: any;
 
-  constructor(public service: TicketService, public dialogRef: MatDialogRef<TicketComponent>) { }
+  constructor(public service: TicketService, public dialogRef: MatDialogRef<TicketComponent>, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(action: string) {
     this.dialogRef.close();
-    this.service.createDto(action);
+    this.service.createDto(action).subscribe(
+      response => {
+        console.log(response.message);
+        window.location.reload();
+      }),
+      (error: any) => {
+        this.notificationService.warn(`:: ${error.message}`);
+      }
   }
 
   onClose() {
@@ -42,7 +50,7 @@ export class TicketComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
     console.log(file);
     this.fileName = file.name;
     this.service.getFormData().append('attachment', file);

@@ -35,6 +35,11 @@ const routes: Routes = [
     component: TicketOverviewComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'tickets/:',
+    component: HomePageComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

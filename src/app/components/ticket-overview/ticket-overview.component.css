@@ -1,6 +1,5 @@
 h2 {
     font-weight: bolder;
-    margin-bottom: 40px;
 }
 
 .buttons-container {
@@ -17,13 +16,51 @@ h2 {
     border: 2px solid rgb(45, 45, 139);
 }
 
+.btn__check {
+    border: 2px solid rgb(45, 45, 139);
+}
+
 .overview-container {
     width: 100%;
     margin-top: 40px;
     margin-left: 8%;
-    text-align: left;
+}
+
+.overview-header {
+    display: inline-flex;
+    width: 90%;
+    justify-content: space-between;
 }
 
 .container {
     display: flex;
+}
+
+.list-container {
+    margin-left: 1.5%;
+}
+
+.list:hover {
+    background-color: transparent;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    opacity: 0;
+    transition: 1s;
+    pointer-events: none;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+}
+
+.comment-container {
+    display: flex;
+}
+
+.comment:hover {
+    background-color: transparent;
+    color: rgb(45, 45, 139);
+    font-weight: bolder;
 }

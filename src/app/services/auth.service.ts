@@ -29,10 +29,9 @@ export class AuthService {
         this.tokenStorage.saveToken(response.token);
         this.tokenStorage.saveRole(response.role);
         this.router.navigate(['/home'])
-      },
+      }),
       (error: HttpErrorResponse) => {
         this.router.navigate(['/error'])
       }
-    )
   }
 }

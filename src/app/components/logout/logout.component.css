@@ -1,6 +1,7 @@
 .head-wrapper {
     background-image: url(https://image.shutterstock.com/image-illustration/backdrop-gray-white-halftone-perspective-600w-618298106.jpg);
     background-size: 100%;
+    width: 100%;
 }
 
 h1 {

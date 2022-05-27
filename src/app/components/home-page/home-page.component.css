@@ -17,6 +17,18 @@
     color: white;
 }
 
+button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+}
+
+button:disabled:hover {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+}
+
 .logout-button-container,
 .create-button-container {
     display: flex;
@@ -93,7 +105,9 @@ option {
 
 .search-form-field {
     width: 60%;
-    /* margin-left: 10px;
-    padding: 5px 10px; */
     border-radius: 5px;
+}
+
+.over-link {
+    justify-content: center;
 }

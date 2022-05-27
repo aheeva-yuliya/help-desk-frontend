@@ -17,6 +17,8 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { TicketOverviewComponent } from './components/ticket-overview/ticket-overview.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { TicketOverviewComponent } from './components/ticket-overview/ticket-ove
     LogoutComponent,
     TicketComponent,
     TicketOverviewComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { TicketOverviewComponent } from './components/ticket-overview/ticket-ove
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxStarRatingModule,
   ],
   providers: [AuthGuard, DatePipe,
     {provide: HTTP_INTERCEPTORS,

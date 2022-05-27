@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-
 import { environment } from 'src/environments/environment';
 import { TicketResponseDto } from '../interfaces/ticketResponseDto';
 import { HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ResponseMessage } from '../interfaces/responseMessage';
-import { NotificationService } from './notification-service.service';
 import { DatePipe } from '@angular/common';
 import { OverviewResponse } from '../interfaces/overviewResponse';
 
@@ -16,7 +13,6 @@ import { OverviewResponse } from '../interfaces/overviewResponse';
 const httpOptionsJson = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
 
 
 @Injectable({
@@ -27,21 +23,23 @@ export class TicketService {
 
   private formData = new FormData();
 
-  overview: OverviewResponse;
+  private overview: OverviewResponse;
 
-  lastTypeOfTickets: string
+  private id: number;
+
+  title: string;
 
   form: FormGroup = new FormGroup({
     category: new FormControl(null, Validators.required),
     name: new FormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
-    description: new FormControl(null, [Validators.minLength(0), Validators.maxLength(500)]),
+    description: new FormControl([Validators.minLength(0), Validators.maxLength(500)]),
     urgency: new FormControl(null, Validators.required),
-    desiredResolutionDate: new FormControl(''),
+    desiredResolutionDate: new FormControl(),
     attachment: new FormControl(File),
-    comment: new FormControl(null)
+    comment: new FormControl()
   });
 
-  constructor(private http: HttpClient, private notificationService: NotificationService, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
   getFormData(): FormData {
     return this.formData;
@@ -64,16 +62,22 @@ export class TicketService {
     return this.http.patch<ResponseMessage>(`${this.apiServerUrl}/${id}?action=${action}`, httpOptionsJson);
   }
 
-  sendTicketRequest(dto: FormData, action: string) {
+  sendTicketRequest(dto: FormData, action: string): Observable<ResponseMessage> {
     console.log('sending ', dto);
-    return this.http.post<ResponseMessage>(`${this.apiServerUrl}/?action=${action}`, dto)
+    console.log();
+    if (this.id === undefined) {
+      return this.http.post<ResponseMessage>(`${this.apiServerUrl}/?action=${action}`, dto);
+    } else {
+      return this.http.put<ResponseMessage>(`${this.apiServerUrl}/${this.id}/?action=${action}`, dto);
+    }
   }
 
-  createDto(action: string) {
+  createDto(action: string): Observable<ResponseMessage> {
     const dateValue = this.form.value.desiredResolutionDate == "" ? "" : this.datePipe.transform(this.form.value.desiredResolutionDate, 'yyyy-MM-dd');
     console.log(dateValue);
 
     if (dateValue !== null) {
+      console.log('append');
       this.formData.append('desiredResolutionDate', dateValue);
     }
 
@@ -83,15 +87,27 @@ export class TicketService {
     this.formData.append('description', this.form.get('description')?.value);
     this.formData.append('comment', this.form.get('comment')?.value);
 
-    this.sendTicketRequest(this.formData, action)
-      .subscribe(response => {
-        console.log(response.message);
-        this.notificationService.success(`:: ${response.message}`);
-        this.form.reset();
-      },
-        (error: HttpErrorResponse) => {
-          this.notificationService.warn(`:: ${error.message}`);
-          this.form.reset();
-        });
+    this.form.reset();
+
+    return this.sendTicketRequest(this.formData, action);
+  }
+
+  initializeForm() {
+    this.title = 'Create New Ticket';
+    this.form.reset();
+  }
+
+  populateForm(overview: any) {
+    this.form.setValue({
+      name: overview.name,
+      category: overview.category,
+      description: overview.description,
+      urgency: overview.urgency,
+      desiredResolutionDate: overview.desiredResolutionDate,
+      attachment: null,
+      comment: null
+    });
+    this.id = overview.id;
+    this.title = 'Edit Ticket #' + this.id;
   }
 }
