@@ -20,13 +20,8 @@ const httpOptionsJson = {
 })
 export class TicketService {
   private apiServerUrl = `${environment.apiBaseUrl}/tickets`;
-
   private formData = new FormData();
-
-  private overview: OverviewResponse;
-
   private id: number;
-
   title: string;
 
   form: FormGroup = new FormGroup({

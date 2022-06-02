@@ -3,14 +3,14 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ResponseMessage } from '../interfaces/responseMessage';
-import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActionService {
   private apiServerUrl = `${environment.apiBaseUrl}`;
+  ticketId: number;
+  ticketName: string;
 
   constructor(private http: HttpClient) { }
 
@@ -34,5 +34,9 @@ export class ActionService {
 
   removeAttachment(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiServerUrl}/attachments/${id}`);
+  }
+
+  addFeedback(rate: number, comment: string): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(`${this.apiServerUrl}/feedbacks/${this.ticketId}`, {rate: rate, comment: comment});
   }
 }

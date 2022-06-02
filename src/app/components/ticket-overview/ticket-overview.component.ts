@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OverviewResponse } from 'src/app/interfaces/overviewResponse';
 import { ActivatedRoute } from '@angular/router';
 import { TicketService } from 'src/app/services/ticket.service';
-import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActionService } from 'src/app/services/action.service';
@@ -32,8 +31,8 @@ export class TicketOverviewComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private location: Location, private dialog: MatDialog,
-    private ticketService: TicketService, private actionService: ActionService, private notificationService: NotificationService) { }
+  constructor(private route: ActivatedRoute, private dialog: MatDialog,private ticketService: TicketService,
+     private actionService: ActionService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.getOverview();
@@ -102,6 +101,8 @@ export class TicketOverviewComponent implements OnInit {
   }
 
   onLeaveFeedback() {
+    this.actionService.ticketId = this.id;
+    this.actionService.ticketName = this.overview.name;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

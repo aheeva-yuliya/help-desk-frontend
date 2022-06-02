@@ -4,6 +4,17 @@
     align-items: center;
 }
 
-.rate {
-    justify-content: center;
+.rate-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cont {
+    text-align: left;
+}
+
+div.stars {
+    width: 270px;
+    display: inline-block;
 }
