@@ -106,8 +106,8 @@ export class TicketOverviewComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "80%";
-    dialogConfig.height = "80%";
+    dialogConfig.width = "70%";
+    dialogConfig.height = "70%";
     this.dialog.open(FeedbackComponent, dialogConfig);
   }
 
