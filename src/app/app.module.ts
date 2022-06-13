@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ErrorComponent } from './components/error/error.component';
@@ -23,7 +22,6 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
         HomePageComponent,
         ErrorComponent,
         LogoutComponent,
