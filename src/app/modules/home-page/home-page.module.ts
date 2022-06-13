@@ -5,6 +5,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { LogoutComponent } from '../../components/logout/logout.component';
+import { TicketModule } from '../ticket/ticket.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { LogoutComponent } from '../../components/logout/logout.component';
     FormsModule,
     HomeRoutingModule,
     ReactiveFormsModule,
+    TicketModule
   ]
 })
 export class HomePageModule { }

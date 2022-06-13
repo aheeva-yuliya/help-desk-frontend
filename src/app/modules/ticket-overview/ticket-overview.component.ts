@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActionService } from 'src/app/services/action.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TicketComponent } from '../../components/ticket/ticket.component';
+import { TicketComponent } from '../ticket/ticket.component';
 import { FeedbackComponent } from '../../components/feedback/feedback.component';
 import { NotificationService } from 'src/app/services/notification-service.service';
 import { saveAs } from 'file-saver';
