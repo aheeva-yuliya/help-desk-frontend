@@ -21,32 +21,31 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomePageComponent,
-    ErrorComponent,
-    LogoutComponent,
-    TicketComponent,
-    TicketOverviewComponent,
-    FeedbackComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgxStarRatingModule,
-  ],
-  providers: [AuthGuard, DatePipe,
-    {provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true}
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [TicketComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        HomePageComponent,
+        ErrorComponent,
+        LogoutComponent,
+        TicketComponent,
+        TicketOverviewComponent,
+        FeedbackComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        NgxStarRatingModule,
+    ],
+    providers: [AuthGuard, DatePipe,
+        { provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

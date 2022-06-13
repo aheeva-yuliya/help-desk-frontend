@@ -104,5 +104,7 @@
       }
     }
   },
-  "defaultProject": "help-desk-front"
+  "cli": {
+    "analytics": false
+  }
 }

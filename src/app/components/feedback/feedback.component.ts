@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActionService } from 'src/app/services/action.service';
 import { NotificationService } from 'src/app/services/notification-service.service';
 
@@ -11,10 +11,10 @@ import { NotificationService } from 'src/app/services/notification-service.servi
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public comment: string;
 
-  constructor(private dialogRef: MatDialogRef<FeedbackComponent>, private fb: FormBuilder,
+  constructor(private dialogRef: MatDialogRef<FeedbackComponent>, private fb: UntypedFormBuilder,
     public service: ActionService, private notificationService: NotificationService) {
   }
 

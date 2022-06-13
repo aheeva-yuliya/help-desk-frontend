@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TicketResponseDto } from '../interfaces/ticketResponseDto';
 import { HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators } from "@angular/forms";
 import { ResponseMessage } from '../interfaces/responseMessage';
 import { DatePipe } from '@angular/common';
 import { OverviewResponse } from '../interfaces/overviewResponse';
@@ -24,14 +24,14 @@ export class TicketService {
   private id: number;
   public title: string;
 
-  public form: FormGroup = new FormGroup({
-    category: new FormControl(null, Validators.required),
-    name: new FormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
-    description: new FormControl([Validators.minLength(0), Validators.maxLength(500)]),
-    urgency: new FormControl(null, Validators.required),
-    desiredResolutionDate: new FormControl(),
-    attachment: new FormControl(File),
-    comment: new FormControl()
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    category: new UntypedFormControl(null, Validators.required),
+    name: new UntypedFormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
+    description: new UntypedFormControl([Validators.minLength(0), Validators.maxLength(500)]),
+    urgency: new UntypedFormControl(null, Validators.required),
+    desiredResolutionDate: new UntypedFormControl(),
+    attachment: new UntypedFormControl(File),
+    comment: new UntypedFormControl()
   });
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
