@@ -19,12 +19,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'auth',
-    component: LoginComponent
-  },
-  {
     path: 'error',
-    component: ErrorComponent
+    loadChildren: () =>
+      import('./components/error/error.module').then((m) => m.ErrorModule)
   },
   {
     path: 'logout',

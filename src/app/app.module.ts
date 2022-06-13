@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { AuthGuard } from './guards/auth.guard';
-import { ErrorComponent } from './components/error/error.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/auth-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,7 +22,6 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     declarations: [
         AppComponent,
         HomePageComponent,
-        ErrorComponent,
         LogoutComponent,
         TicketComponent,
         TicketOverviewComponent,
