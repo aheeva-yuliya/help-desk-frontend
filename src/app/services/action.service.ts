@@ -9,34 +9,34 @@ import { ResponseMessage } from '../interfaces/responseMessage';
 })
 export class ActionService {
   private apiServerUrl = `${environment.apiBaseUrl}`;
-  ticketId: number;
-  ticketName: string;
+  public ticketId: number;
+  public ticketName: string;
 
   constructor(private http: HttpClient) { }
 
-  getAllHistory(id: number): Observable<Array<any>> {
-    return this.http.get<Array<any>>(`${this.apiServerUrl}/history/${id}`);
+  public getAllHistory(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiServerUrl}/history/${id}`);
   }
 
-  getAllComments(id: number): Observable<Array<any>> {
-    return this.http.get<Array<any>>(`${this.apiServerUrl}/comments/${id}`);
+  public getAllComments(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiServerUrl}/comments/${id}`);
   }
 
-  addComment(id: number, comment: string): Observable<ResponseMessage> {
+  public addComment(id: number, comment: string): Observable<ResponseMessage> {
     console.log(id, comment);
     return this.http.post<ResponseMessage>(`${this.apiServerUrl}/comments/${id}`, { comment: comment });
   }
 
-  downloadAttachment(id: number): Observable<Blob> {
-    return this.http.get(this.apiServerUrl + '/attachments/' + id, { responseType: 'blob' });
+  public downloadAttachment(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiServerUrl}/attachments/${id}`, { responseType: 'blob' });
 
   }
 
-  removeAttachment(id: number): Observable<ResponseMessage> {
+  public removeAttachment(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiServerUrl}/attachments/${id}`);
   }
 
-  addFeedback(rate: number, comment: string): Observable<ResponseMessage> {
+  public addFeedback(rate: number, comment: string): Observable<ResponseMessage> {
     return this.http.post<ResponseMessage>(`${this.apiServerUrl}/feedbacks/${this.ticketId}`, {rate: rate, comment: comment});
   }
 }

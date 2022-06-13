@@ -17,17 +17,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class HomePageComponent implements OnInit {
-  userRole: boolean;
-  selectedAction: string = '';
-  responseMessage: string;
+  public userRole: boolean;
+  public selectedAction: string = '';
+  public responseMessage: string;
 
-  searchKey: string;
+  public searchKey: string;
 
-  listData: MatTableDataSource<any>;
+  public listData: MatTableDataSource<any>;
 
-  isAllTickets: boolean;
+  public isAllTickets: boolean;
 
-  displayedColumns: string[] = ['id', 'name', 'date', 'urgency', 'status', 'action', 'overview'];
+  public displayedColumns: string[] = ['id', 'name', 'date', 'urgency', 'status', 'action', 'overview'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -45,7 +45,7 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  getAllTickets() {
+  public getAllTickets() {
     this.ticketService.getAllTickets()
       .subscribe(response => {
         console.log('got responce', response);
@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  getMyTickets() {
+  public getMyTickets() {
     this.ticketService.getMyTickets()
       .subscribe(response => {
         console.log('got responce', response);
@@ -67,12 +67,12 @@ export class HomePageComponent implements OnInit {
       })
   }
 
-  getTicketOverview(id: number) {
+  public getTicketOverview(id: number) {
     console.log(id);
     this.ticketService.getOverview(id);
   }
 
-  performAction(id: number) {
+  public performAction(id: number) {
     console.log(id);
     console.log(this.selectedAction);
 
@@ -90,7 +90,7 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  onDeleteMessage() {
+  public onDeleteMessage() {
     this.responseMessage = '';
     if (this.isAllTickets) {
       this.getAllTickets();
@@ -99,16 +99,12 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  onSearchClear() {
+  public onSearchClear() {
     this.searchKey = "";
     this.applyFilter();
   }
 
-  applyFilter() {
-    this.listData.filter = this.searchKey.trim().toLowerCase();
-  }
-
-  onCreate() {
+  public onCreate() {
     this.ticketService.initializeForm();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -116,5 +112,9 @@ export class HomePageComponent implements OnInit {
     dialogConfig.width = "80%";
     dialogConfig.height = "80%";
     this.dialog.open(TicketComponent, dialogConfig);
+  }
+
+  public applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
   }
 }

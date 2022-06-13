@@ -9,8 +9,6 @@ const ROLE = 'UserRole';
 
 export class TokenStorageService {
 
-  constructor() { }
-
   public getLength() {
     return localStorage.length;
   }

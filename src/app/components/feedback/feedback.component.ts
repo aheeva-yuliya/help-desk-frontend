@@ -12,9 +12,9 @@ import { NotificationService } from 'src/app/services/notification-service.servi
 })
 export class FeedbackComponent implements OnInit {
   public form: FormGroup;
-  comment: string;
+  public comment: string;
 
-  constructor(public dialogRef: MatDialogRef<FeedbackComponent>, private fb: FormBuilder,
+  constructor(private dialogRef: MatDialogRef<FeedbackComponent>, private fb: FormBuilder,
     public service: ActionService, private notificationService: NotificationService) {
   }
 
@@ -24,11 +24,11 @@ export class FeedbackComponent implements OnInit {
     })
   }
 
-  onClose() {
+  public onClose() {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.dialogRef.close();
     this.service.addFeedback(this.form.value.rating, this.comment).subscribe(
       response => {

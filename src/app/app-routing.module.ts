@@ -9,6 +9,11 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomePageComponent,
     canActivate: [AuthGuard]
@@ -16,11 +21,6 @@ const routes: Routes = [
   {
     path: 'auth',
     component: LoginComponent
-  },
-  {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full'
   },
   {
     path: 'error',
@@ -39,6 +39,11 @@ const routes: Routes = [
     path: 'tickets/:',
     component: HomePageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'my',
+    loadChildren: () =>
+      import('./modules/my/my.module').then((m) => m.MyModule)
   }
 ];
 

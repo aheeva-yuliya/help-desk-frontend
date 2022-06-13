@@ -8,7 +8,7 @@ import { TokenStorageService } from "../services/token-storage.service";
 export class AuthGuard implements CanActivate {
     constructor(@Inject(TokenStorageService) private tokenStorage: TokenStorageService) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         console.log('guard');
         return this.tokenStorage.getToken() !== '';
     }

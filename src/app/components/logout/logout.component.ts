@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -6,14 +6,11 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.css']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent {
 
   constructor(private tokenStorage: TokenStorageService) { }
 
-  ngOnInit(): void {
-  }
-
-  handleLogout() {
+  public handleLogout() {
     this.tokenStorage.removeToken();
     this.tokenStorage.removeRole();
   }

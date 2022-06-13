@@ -17,17 +17,17 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./ticket-overview.component.css']
 })
 export class TicketOverviewComponent implements OnInit {
-  overview: OverviewResponse;
-  listData: MatTableDataSource<any>;
-  displayedColumns: string[];
-  isValid: boolean;
-  isDraft: boolean;
-  isDone: boolean;
-  id: number;
-  attachments: { id: number, name: string }[];
-  comment: string;
-  comments: {}[];
-  history: {}[];
+  public overview: OverviewResponse;
+  public listData: MatTableDataSource<any>;
+  public displayedColumns: string[];
+  public isValid: boolean;
+  public isDraft: boolean;
+  public isDone: boolean;
+  public id: number;
+  public attachments: { id: number, name: string }[];
+  public comment: string;
+  public comments: {}[];
+  public history: {}[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -38,8 +38,7 @@ export class TicketOverviewComponent implements OnInit {
     this.getOverview();
   }
 
-  getOverview(): void {
-    console.log(this.route.snapshot.paramMap);
+  public getOverview(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.ticketService.getOverview(id).subscribe(
       (response: OverviewResponse) => {
@@ -56,21 +55,21 @@ export class TicketOverviewComponent implements OnInit {
     );
   }
 
-  getHistoryData() {
+  public getHistoryData() {
     this.listData = new MatTableDataSource(this.history);
     this.displayedColumns = ['date', 'user', 'action', 'description'];
     this.isValid = true;
     this.listData.paginator = this.paginator;
   }
 
-  getCommentsData() {
+  public getCommentsData() {
     this.listData = new MatTableDataSource(this.comments);
     this.displayedColumns = ['date', 'user', 'text'];
     this.isValid = false;
     this.listData.paginator = this.paginator;
   }
 
-  getAll() {
+  public getAll() {
     if (this.isValid) {
       this.actionService.getAllHistory(this.id).subscribe(
         response => {
@@ -90,7 +89,7 @@ export class TicketOverviewComponent implements OnInit {
     }
   }
 
-  onEdit() {
+  public onEdit() {
     this.ticketService.populateForm(this.overview);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -100,7 +99,7 @@ export class TicketOverviewComponent implements OnInit {
     this.dialog.open(TicketComponent, dialogConfig);
   }
 
-  onLeaveFeedback() {
+  public onLeaveFeedback() {
     this.actionService.ticketId = this.id;
     this.actionService.ticketName = this.overview.name;
     const dialogConfig = new MatDialogConfig();
@@ -111,7 +110,7 @@ export class TicketOverviewComponent implements OnInit {
     this.dialog.open(FeedbackComponent, dialogConfig);
   }
 
-  removeAttachment(id: number) {
+  public removeAttachment(id: number) {
     this.actionService.removeAttachment(id).subscribe(
       response => {
       this.notificationService.success(`:: ${response.message}`);
@@ -120,7 +119,7 @@ export class TicketOverviewComponent implements OnInit {
       (error: any) => this.notificationService.warn(`:: ${error.message}`);
   }
 
-  downloadAttachment(id: number, name: string) {
+  public downloadAttachment(id: number, name: string) {
     this.actionService.downloadAttachment(id).subscribe(
       (response: any) => {
         const blob: any = new Blob([response], { type: response.type });
@@ -130,7 +129,7 @@ export class TicketOverviewComponent implements OnInit {
       (error: any) => this.notificationService.warn(`:: ${error.message}`);;
   }
 
-  addComment() {
+  public addComment() {
     this.actionService.addComment(this.id, this.comment).subscribe(
       (response: any) => {
         console.log(response.message);
@@ -142,4 +141,5 @@ export class TicketOverviewComponent implements OnInit {
       };
     this.comment = '';
   }
+
 }

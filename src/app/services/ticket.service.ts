@@ -22,9 +22,9 @@ export class TicketService {
   private apiServerUrl = `${environment.apiBaseUrl}/tickets`;
   private formData = new FormData();
   private id: number;
-  title: string;
+  public title: string;
 
-  form: FormGroup = new FormGroup({
+  public form: FormGroup = new FormGroup({
     category: new FormControl(null, Validators.required),
     name: new FormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
     description: new FormControl([Validators.minLength(0), Validators.maxLength(500)]),
@@ -36,28 +36,28 @@ export class TicketService {
 
   constructor(private http: HttpClient, private datePipe: DatePipe) { }
 
-  getFormData(): FormData {
+  public getFormData(): FormData {
     return this.formData;
   }
 
-  getAllTickets(): Observable<Array<TicketResponseDto>> {
+  public getAllTickets(): Observable<Array<TicketResponseDto>> {
     return this.http.get<Array<TicketResponseDto>>(this.apiServerUrl);
   }
 
-  getMyTickets(): Observable<Array<TicketResponseDto>> {
+  public getMyTickets(): Observable<Array<TicketResponseDto>> {
     return this.http.get<Array<TicketResponseDto>>(`${this.apiServerUrl}/my`);
   }
 
-  getOverview(id: number): Observable<OverviewResponse> {
+  public getOverview(id: number): Observable<OverviewResponse> {
     return this.http.get<OverviewResponse>(`${this.apiServerUrl}/${id}`);
   }
 
-  performAction(id: number, action: string): Observable<ResponseMessage> {
+  public performAction(id: number, action: string): Observable<ResponseMessage> {
     console.log('came here');
     return this.http.patch<ResponseMessage>(`${this.apiServerUrl}/${id}?action=${action}`, httpOptionsJson);
   }
 
-  sendTicketRequest(dto: FormData, action: string): Observable<ResponseMessage> {
+  public sendTicketRequest(dto: FormData, action: string): Observable<ResponseMessage> {
     console.log('sending ', dto);
     console.log();
     if (this.id === undefined) {
@@ -67,7 +67,7 @@ export class TicketService {
     }
   }
 
-  createDto(action: string): Observable<ResponseMessage> {
+  public createDto(action: string): Observable<ResponseMessage> {
     const dateValue = this.form.value.desiredResolutionDate == "" ? "" : this.datePipe.transform(this.form.value.desiredResolutionDate, 'yyyy-MM-dd');
     console.log(dateValue);
 
@@ -87,12 +87,12 @@ export class TicketService {
     return this.sendTicketRequest(this.formData, action);
   }
 
-  initializeForm() {
+  public initializeForm() {
     this.title = 'Create New Ticket';
     this.form.reset();
   }
 
-  populateForm(overview: any) {
+  public populateForm(overview: any) {
     this.form.setValue({
       name: overview.name,
       category: overview.category,

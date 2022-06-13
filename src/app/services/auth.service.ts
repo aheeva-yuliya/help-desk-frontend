@@ -20,9 +20,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService, private router: Router) { }
 
-  performAuthRequest(email: string, password: string): void {
+  public performAuthRequest(email: string, password: string): void {
     const login = { email: email, password: password };
-    console.log(login);
     this.http.post<authResponse>(`${this.apiServerUrl}/auth`, login, httpOptions).subscribe(
       (response: authResponse) => {
         console.log('got responce', response);

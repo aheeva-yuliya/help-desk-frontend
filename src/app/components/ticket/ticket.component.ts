@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TicketService } from 'src/app/services/ticket.service';
 import { NotificationService } from 'src/app/services/notification-service.service';
@@ -8,8 +8,8 @@ import { NotificationService } from 'src/app/services/notification-service.servi
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
-export class TicketComponent implements OnInit {
-  categories = [
+export class TicketComponent {
+  public categories = [
     { value: "Application & Services" },
     { value: "Benefits & Paper Work" },
     { value: "Hardware & Software" },
@@ -18,21 +18,18 @@ export class TicketComponent implements OnInit {
     { value: "Workplaces & Facilities" }
   ];
 
-  urgencies = [
+  public urgencies = [
     { value: "Critical" },
     { value: "High" },
     { value: "Average" },
     { value: "Low" }
   ];
 
-  fileName: any;
+  public fileName: string;
 
-  constructor(public service: TicketService, public dialogRef: MatDialogRef<TicketComponent>, private notificationService: NotificationService) { }
+  constructor(public service: TicketService, private dialogRef: MatDialogRef<TicketComponent>, private notificationService: NotificationService) { }
 
-  ngOnInit(): void {
-  }
-
-  onSubmit(action: string) {
+  public onSubmit(action: string) {
     this.dialogRef.close();
     this.service.createDto(action).subscribe(
       response => {
@@ -44,12 +41,12 @@ export class TicketComponent implements OnInit {
       }
   }
 
-  onClose() {
+  public onClose() {
     this.service.form.reset();
     this.dialogRef.close();
   }
 
-  onFileSelected(event: any) {
+  public onFileSelected(event: any) {
     const file: File = event.target.files[0];
     console.log(file);
     this.fileName = file.name;
