@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { TicketService } from 'src/app/services/ticket.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { TicketComponent } from '../ticket/ticket.component';
+import { TicketComponent } from '../../components/ticket/ticket.component';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';

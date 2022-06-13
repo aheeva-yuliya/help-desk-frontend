@@ -14,7 +14,6 @@ const httpOptionsJson = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -26,8 +25,8 @@ export class TicketService {
 
   public form: UntypedFormGroup = new UntypedFormGroup({
     category: new UntypedFormControl(null, Validators.required),
-    name: new UntypedFormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
-    description: new UntypedFormControl([Validators.minLength(0), Validators.maxLength(500)]),
+    name: new UntypedFormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(100)]),
+    description: new UntypedFormControl('', [Validators.minLength(0), Validators.maxLength(500)]),
     urgency: new UntypedFormControl(null, Validators.required),
     desiredResolutionDate: new UntypedFormControl(),
     attachment: new UntypedFormControl(File),
@@ -69,7 +68,6 @@ export class TicketService {
 
   public createDto(action: string): Observable<ResponseMessage> {
     const dateValue = this.form.value.desiredResolutionDate == "" ? "" : this.datePipe.transform(this.form.value.desiredResolutionDate, 'yyyy-MM-dd');
-    console.log(dateValue);
 
     if (dateValue !== null) {
       console.log('append');
@@ -77,9 +75,20 @@ export class TicketService {
     }
 
     this.formData.append('category', this.form.get('category')?.value);
-    this.formData.append('name', this.form.get('name')?.value);
+
+    const name = this.form.get('name')?.value;
+
+    if (name !== null) {
+      this.formData.append('name', name);
+    }
+
+    const description = this.form.get('description')?.value;
+
+    if (description !== null) {
+      this.formData.append('description', description);
+    }
+   
     this.formData.append('urgency', this.form.get('urgency')?.value);
-    this.formData.append('description', this.form.get('description')?.value);
     this.formData.append('comment', this.form.get('comment')?.value);
 
     this.form.reset();

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './modules/home-page/home-page.component';
-import { TicketOverviewComponent } from './modules/ticket-overview/ticket-overview.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -22,16 +20,17 @@ const routes: Routes = [
       import('./modules/error/error.module').then((m) => m.ErrorModule)
   },
   {
-    path: 'overview/:id',
-    component: TicketOverviewComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'tickets/:',
     loadChildren: () =>
       import('./modules/home-page/home-page.module').then((m) => m.HomePageModule),
       canActivate: [AuthGuard]  
   },
+  {
+    path: 'overview/:id',
+    loadChildren: () =>
+      import('./modules/ticket-overview/ticket-overview.module').then((m) => m.TicketOverviewModule),
+      canActivate: [AuthGuard]  
+  }
 ];
 
 @NgModule({

@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomePageComponent } from './home-page.component';
+import { TicketOverviewComponent } from './ticket-overview.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
-import { HomeRoutingModule } from './home-routing.module';
-import { LogoutComponent } from '../../components/logout/logout.component';
+import { TicketOverviewRoutingModule } from './ticket-overview-routing.module';
 
 @NgModule({
-  declarations: [
-    HomePageComponent,
-    LogoutComponent
-  ],
+  declarations: [TicketOverviewComponent],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
-    HomeRoutingModule,
+    TicketOverviewRoutingModule,
     ReactiveFormsModule,
   ]
 })
-export class HomePageModule { }
+export class TicketOverviewModule { }

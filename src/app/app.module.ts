@@ -7,30 +7,28 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/auth-interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { TicketComponent } from './modules/ticket/ticket.component';
+import { TicketComponent } from './components/ticket/ticket.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { TicketOverviewComponent } from './modules/ticket-overview/ticket-overview.component';
-import { FeedbackComponent } from './modules/feedback/feedback.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         TicketComponent,
-        TicketOverviewComponent,
-        FeedbackComponent,    
+        FeedbackComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        BrowserAnimationsModule,
         MaterialModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         NgxStarRatingModule,
     ],
     providers: [AuthGuard, DatePipe,
