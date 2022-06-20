@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenStorageService } from './token-storage.service';
@@ -16,9 +15,11 @@ const httpOptions = {
 })
 
 export class AuthService {
-  private apiServerUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private http: HttpClient,
+    private tokenStorage: TokenStorageService,
+    private router: Router,
+    @Inject('API') private apiServerUrl: string) { }
 
   public performAuthRequest(email: string, password: string): void {
     const login = { email: email, password: password };

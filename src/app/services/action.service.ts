@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ResponseMessage } from '../interfaces/responseMessage';
@@ -8,11 +7,10 @@ import { ResponseMessage } from '../interfaces/responseMessage';
   providedIn: 'root'
 })
 export class ActionService {
-  private apiServerUrl = `${environment.apiBaseUrl}`;
   public ticketId: number;
   public ticketName: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject('API') private apiServerUrl: string) { }
 
   public getAllHistory(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiServerUrl}/history/${id}`);

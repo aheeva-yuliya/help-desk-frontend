@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -18,7 +18,7 @@ const httpOptionsJson = {
   providedIn: 'root'
 })
 export class TicketService {
-  private apiServerUrl = `${environment.apiBaseUrl}/tickets`;
+  private apiServerUrl: string;
   private formData = new FormData();
   private id: number;
   public title: string;
@@ -33,7 +33,9 @@ export class TicketService {
     comment: new UntypedFormControl()
   });
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private datePipe: DatePipe, @Inject('API') private apiBaseUrl: string) {
+    this.apiServerUrl = `${this.apiBaseUrl}/tickets`;
+   }
 
   public getFormData(): FormData {
     return this.formData;

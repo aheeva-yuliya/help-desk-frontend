@@ -9,6 +9,7 @@ import { TokenInterceptor } from './interceptors/auth-interceptor';
 import { MaterialModule } from './material/material.module';
 import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     providers: [AuthGuard, DatePipe,
         { provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
-            multi: true }
+            multi: true },
+            {
+                provide: 'API',
+                useValue: environment.apiBaseUrl
+            }
     ],
     bootstrap: [AppComponent]
 })
