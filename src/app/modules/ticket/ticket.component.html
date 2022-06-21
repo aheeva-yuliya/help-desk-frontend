@@ -1,10 +1,10 @@
 <div mat-dialog-title class="dialog-title">
-    <h2>{{service.title}}</h2>
+    <h2>{{title}}</h2>
     <button mat-icon-button aria-label="close dialog" mat-dialog-close (click)="onClose()">
         <mat-icon>close</mat-icon>
     </button>
 </div>
-<form [formGroup]="service.form" class="normal-form">
+<form [formGroup]="form" class="normal-form">
     <div class="controles-container">
         <mat-form-field>
             <mat-select formControlName="category" placeholder="Category">
@@ -55,7 +55,7 @@
         <div class="button-row">
             <button mat-raised-button color="accent" type="submit" (click)="onSubmit('SAVE AS DRAFT')">SAVE AS
                 DRAFT</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid"
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid"
                 (click)="onSubmit('SUBMIT')">SUBMIT</button>
         </div>
     </div>

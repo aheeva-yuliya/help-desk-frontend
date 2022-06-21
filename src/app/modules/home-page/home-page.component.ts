@@ -9,7 +9,6 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -32,7 +31,8 @@ export class HomePageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private ticketService: TicketService, private dialog: MatDialog, private storage: TokenStorageService, private route: ActivatedRoute) {
+  constructor(private ticketService: TicketService, private dialog: MatDialog,
+     private storage: TokenStorageService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -104,14 +104,19 @@ export class HomePageComponent implements OnInit {
     this.applyFilter();
   }
 
-  public onCreate() {
-    this.ticketService.initializeForm();
+  public onCreate() {    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "80%";
     dialogConfig.height = "80%";
-    this.dialog.open(TicketComponent, dialogConfig);
+
+    dialogConfig.data = { title: 'Create New Ticket'};
+    
+    this.dialog.open(TicketComponent, dialogConfig).afterClosed().subscribe(
+      //refresh table
+    );
+
   }
 
   public applyFilter() {

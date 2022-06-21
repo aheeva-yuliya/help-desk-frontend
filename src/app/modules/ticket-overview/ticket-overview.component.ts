@@ -31,8 +31,9 @@ export class TicketOverviewComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog,private ticketService: TicketService,
-     private actionService: ActionService, private notificationService: NotificationService) { }
+  constructor(private route: ActivatedRoute, private dialog: MatDialog,
+    private ticketService: TicketService, private actionService: ActionService,
+    private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.getOverview();
@@ -90,12 +91,14 @@ export class TicketOverviewComponent implements OnInit {
   }
 
   public onEdit() {
-    this.ticketService.populateForm(this.overview);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "80%";
     dialogConfig.height = "80%";
+
+    dialogConfig.data = { overview: this.overview};
+
     this.dialog.open(TicketComponent, dialogConfig);
   }
 
